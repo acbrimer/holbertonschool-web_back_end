@@ -1,6 +1,6 @@
 export default function divideFunction(numerator, denominator) {
   try {
-    return numerator / denominator;
+    return denominator / numerator;
   } catch (err) {
     return 'cannot divide by 0';
   }
