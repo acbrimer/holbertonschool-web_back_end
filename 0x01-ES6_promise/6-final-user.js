@@ -5,7 +5,7 @@ export default function handleProfileSignup(firstName, lastName, filename) {
   const signup = signUpUser(firstName, lastName);
   const upload = uploadPhoto(filename);
   return Promise.allSettled([signup, upload]).then((values) => [
-    values[0],
-    values[1],
+    { status: values[0].status, value: values[0].value },
+    { status: values[1].status, value: values[1].reason },
   ]);
 }
