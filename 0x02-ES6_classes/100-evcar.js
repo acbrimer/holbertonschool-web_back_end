@@ -7,7 +7,7 @@ export default class EVCar extends Car {
   }
 
   cloneCar() {
-    return super.cloneCar();
+    return Object.assign(Object.create(Car, this));
   }
 
   get range() {
