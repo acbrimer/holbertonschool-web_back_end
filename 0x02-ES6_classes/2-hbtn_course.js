@@ -40,6 +40,6 @@ export default class HolbertonCourse {
   }
 
   get students() {
-    return this.students;
+    return this._students;
   }
 }
