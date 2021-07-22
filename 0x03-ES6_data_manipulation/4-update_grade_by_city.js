@@ -4,7 +4,7 @@ export default function updateStudentGradeByCity(students, city, newGrades) {
     {
       id: s.id,
       firstName: s.firstName,
-      grade: Object.keys(newGradesObj).includes(s.id) ? newGradesObj[s.id] : 'N/A',
+      grade: Object.keys(newGradesObj).includes(s.id.toString()) ? newGradesObj[s.id.toString()] : 'N/A',
     }
   ));
 }
