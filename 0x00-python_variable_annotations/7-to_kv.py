@@ -5,4 +5,4 @@ from typing import Union, Tuple, cast
 
 def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
     """ Function to_kv - returns tuple with k and v^2 """
-    return (k, cast(v ^ 2, float))
+    return (k, cast(v * v, float))
