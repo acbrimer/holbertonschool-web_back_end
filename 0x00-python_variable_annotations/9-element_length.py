@@ -5,6 +5,6 @@
 from typing import List, Tuple
 
 
-def element_length(lst: List[str]) -> Tuple[str, int]:
+def element_length(lst: List[str]) -> List[Tuple[str, int]]:
     """ Function element_length - returns tuple array """
     return [(i, len(i)) for i in lst]
