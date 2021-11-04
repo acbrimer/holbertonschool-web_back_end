@@ -5,7 +5,7 @@ from random import uniform
 import typing
 
 
-async def async_generator() -> typing.List[float]:
+async def async_generator() -> typing.Generator[float, None, None]:
     """ Function async_generator - generates a random list """
     for i in range(10):
         await asyncio.sleep(1)
