@@ -4,7 +4,11 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """ BasicCache - simple caching system """
+    """ BasicCache class
+
+        Attributes:
+            cache_data: dict of cache items
+    """
 
     def __init__(self):
         super().__init__
