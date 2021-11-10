@@ -4,7 +4,7 @@ from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """ BasicCache - a simple cache against a dict """
+    """ BasicCache - simple cache class inherited from BaseCaching """
 
     def put(self, key, item):
         if (key or item is not None):
