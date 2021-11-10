@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 """ Module for 0-basic_cache """
-BaseCaching = __import__('base_caching').BaseCaching
+from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
-    """ BasicCache class
-
-        Attributes:
-            cache_data: dict of cache items
-    """
-
-    def __init__(self):
-        super().__init__
+    """ BasicCache - a simple cache against a dict """
 
     def put(self, key, item):
         if (key or item is not None):
