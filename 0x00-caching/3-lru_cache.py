@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module for 1-fifo_cache """
+""" Module for 3-lru_cache """
 from base_caching import BaseCaching
 import collections
 
