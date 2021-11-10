@@ -4,7 +4,7 @@ from base_caching import BaseCaching
 import collections
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """ MRUCache - most recently used cache"""
 
     def __init__(self):
