@@ -18,6 +18,8 @@ class LRUCache(BaseCaching):
         if (len(self.cache_data.keys()) == self.MAX_ITEMS):
             discard = self.cache_data.popitem(last=True)
             print('DISCARD: {}'.format(discard[0]))
+        if (key in self.cache_data.keys()):
+            del self.cache_data[key]
         self.cache_data[key] = item
 
     def get(self, key):
