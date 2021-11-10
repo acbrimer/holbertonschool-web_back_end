@@ -24,6 +24,7 @@ class LRUCache(BaseCaching):
         """ get - retrieve item from cache """
         if (key is None or key not in self.cache_data.keys()):
             return None
-        reset = self.cache_data.pop(key)
-        self.cache_data[reset[0]] = reset[1]
-        return self.cache_data[key]
+        val = self.cache_data[key]
+        del self.cache_data[key]
+        self.cache_data[key] = val
+        return val
