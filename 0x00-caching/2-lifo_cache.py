@@ -5,7 +5,7 @@ import collections
 
 
 class LIFOCache(BaseCaching):
-    """ FIFOCache - first in first out cache """
+    """ LIFOCache - first in first out cache """
 
     def __init__(self):
         super().__init__()
