@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """ Module for 0-simple_helper_function """
 
 
