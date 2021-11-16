@@ -41,7 +41,7 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """ get_hyper_index """
-        assert (isinstance(index, int) and index < len(self.__indexed_dataset))
+        assert (index is int and index < len(self.__indexed_dataset))
         return {
             "index": index,
             "data": self.dataset()[index: index + page_size],
