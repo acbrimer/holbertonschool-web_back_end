@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """ Module for filter_datum """
 import re
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separator) -> str:
+def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """ filter_datum - was asked to use re and, technically, I did  """
-    rows = [s.split("=") for s in message.split(separator)][:-1]
     return separator.join(["{}={}".format(
         r[0],
         re.sub(str(r[1]), str(redaction), r[1]) if r[0] in fields else r[1])
-        for r in rows])
+        for r in [s.split("=") for s in message.split(separator)][:-1]])
