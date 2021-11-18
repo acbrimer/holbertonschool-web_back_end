@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """ Module for filter_datum """
+import os
+from mysql.connector.connection import MySQLConnection
+import mysql.connector
 import re
 from typing import List
 import logging
@@ -55,3 +58,12 @@ def get_logger() -> logging.Logger:
     user_logger.addHandler(out)
     user_logger.propagate = False
     return user_logger
+
+
+def get_db() -> MySQLConnection:
+    return mysql.connector.connect(
+        user=os.environ['PERSONAL_DATA_DB_USERNAME'],
+        password=os.environ['PERSONAL_DATA_DB_PASSWORD'],
+        host=os.environ['PERSONAL_DATA_DB_HOST'],
+        database=os.environ['PERSONAL_DATA_DB_NAME']
+    )
