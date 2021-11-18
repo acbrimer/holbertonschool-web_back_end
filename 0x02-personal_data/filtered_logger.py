@@ -37,5 +37,4 @@ class RedactingFormatter(logging.Formatter):
         d = dict(zip(['name', 'levelname', 'asctime', 'message'],
                      [record.name, record.levelname, t, m]))
         record.msg = self.FORMAT % d
-
         return super(RedactingFormatter, self).format(record)
