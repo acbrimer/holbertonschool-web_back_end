@@ -51,5 +51,7 @@ def get_logger() -> logging.Logger:
     fmt = RedactingFormatter(
         fields=PII_FIELDS)
     out.setFormatter(fmt)
-    user_logger = logging.getLogger('user_data').addHandler(out)
+    user_logger = logging.getLogger('user_data')
+    user_logger.addHandler(out)
+    user_logger.propagate = False
     return user_logger
