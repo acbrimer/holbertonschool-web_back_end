@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """ Module for filter_datum """
 import os
-from mysql.connector.connection import MySQLConnection
 import mysql.connector
+from mysql.connector.connection import MySQLConnection
 import re
 from typing import List
 import logging
@@ -68,3 +68,14 @@ def get_db() -> MySQLConnection:
         host=os.environ['PERSONAL_DATA_DB_HOST'],
         database=os.environ['PERSONAL_DATA_DB_NAME']
     )
+
+
+def main():
+    """ main - query db and log results """
+    db = get_db()
+    logger = get_logger()
+    crs = db.cursor()
+    crs.execute("SELECT * FROM users;")
+    for row in crs:
+        logger.info(row)
+    crs.close()
