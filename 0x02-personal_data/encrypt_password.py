@@ -3,6 +3,6 @@
 import bcrypt
 
 
-def hash_password(password: str) -> bytearray:
+def hash_password(password: str) -> bytes:
     """ hash_password - hashes a password """
     return bcrypt.hashpw(password, bcrypt.gensalt())
