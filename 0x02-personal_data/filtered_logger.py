@@ -3,6 +3,7 @@
 import re
 from typing import List
 import logging
+import sys
 import time
 
 
@@ -38,3 +39,15 @@ class RedactingFormatter(logging.Formatter):
                      [record.name, record.levelname, t, m]))
         record.msg = self.FORMAT % d
         return super(RedactingFormatter, self).format(record)
+
+
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+
+def get_logger() -> logging.Logger:
+    out = logging.StreamHandler(sys.stdout)
+    out.setLevel(logging.INFO)
+    fmt = RedactingFormatter(
+        fields=PII_FIELDS)
+    out.setFormatter(fmt)
+    return logging.getLogger('user_data').addHandler(out)
