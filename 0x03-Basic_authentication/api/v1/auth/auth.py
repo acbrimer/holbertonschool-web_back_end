@@ -38,4 +38,5 @@ class Auth:
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ current_user - hardcoded None """
+        print('Auth.current_user')
         return None
