@@ -25,10 +25,9 @@ class BasicAuth(Auth):
             self,
             base64_authorization_header: str) -> str:
         """ decode_base64_authorization_header """
-        t = self.extract_base64_authorization_header(
-            base64_authorization_header)
         try:
-            b = base64.b64decode(t)
+            b = base64.b64decode(base64_authorization_header)
+            print("B: {}".format(b))
             return b.decode('utf-8')
         except Exception as e:
             return None
