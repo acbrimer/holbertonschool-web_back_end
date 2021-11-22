@@ -24,3 +24,12 @@ def stats() -> str:
     stats = {}
     stats['users'] = User.count()
     return jsonify(stats)
+
+
+@app_views.route('/unauthorized/')
+def unauthorized():
+    """ GET /api/v1/unauthorized
+    Return:
+      - returns a 401 abort error
+    """
+    abort(401)
