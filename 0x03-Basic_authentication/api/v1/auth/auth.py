@@ -25,8 +25,16 @@ class Auth:
         return clean_url(path) not in [clean_url(p) for p in excluded_paths]
 
     def authorization_header(self, request=None) -> str:
-        """ authorization_header - hardcoded None """
-        return None
+        """ authorization_header
+            If req is None, returns None
+            If req doesn’t contain the header key Authorization, returns None
+            Else, return the value of the header req Authorization
+        """
+        if not request:
+            return None
+        if 'Authorization' not in request.headers.keys():
+            return None
+        return request.headers['Authorization']
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ current_user - hardcoded None """
