@@ -22,7 +22,7 @@ class Auth:
         """
         if not path or not excluded_paths:
             return True
-        return clean_url(path) in [clean_url(p) for p in excluded_paths]
+        return clean_url(path) not in [clean_url(p) for p in excluded_paths]
 
     def authorization_header(self, request=None) -> str:
         """ authorization_header - hardcoded None """
