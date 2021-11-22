@@ -20,6 +20,8 @@ class Auth:
             Returns True if excluded_paths is None or empty
             Returns False if path is in excluded_paths
         """
+        if not path or not excluded_paths:
+            return True
         return clean_url(path) in [clean_url(p) for p in excluded_paths]
 
     def authorization_header(self, request=None) -> str:
