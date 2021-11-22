@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Module for basic_auth """
 from api.v1.auth.auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -19,3 +20,13 @@ class BasicAuth(Auth):
         if ' ' not in authorization_header:
             return None
         return authorization_header.split(' ')[1]
+
+    def decode_base64_authorization_header(self, base64_authorization_header: str) -> str:
+        """ decode_base64_authorization_header """
+        t = self.extract_base64_authorization_header(
+            base64_authorization_header)
+        try:
+            b = base64.b64decode(t)
+            return b.decode('utf-8')
+        except:
+            return None
