@@ -5,6 +5,7 @@ from typing import List, TypeVar
 
 
 def clean_url(url: str) -> str:
+    """ clean_url - helper func for slash tolerant url match """
     return url[:-1] if url[-1] == '/' else url
 
 
