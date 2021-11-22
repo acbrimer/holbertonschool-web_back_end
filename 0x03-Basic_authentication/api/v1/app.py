@@ -24,6 +24,7 @@ excluded_paths = ['/api/v1/status/',
 
 @app.before_request
 def before_request():
+    """ before_request - checks auth """
     if auth and auth.require_auth(request.path, excluded_paths):
         if not auth.authorization_header(request):
             abort(401)
