@@ -32,7 +32,7 @@ def unauthorized():
     Return:
       - returns a 401 abort error
     """
-    abort(401)
+    return abort(401)
 
 
 @app_views.route('/unauthorized/')
@@ -41,4 +41,4 @@ def forbidden():
     Return:
       - returns a 403 forbidden error
     """
-    abort(403)
+    return abort(403)
