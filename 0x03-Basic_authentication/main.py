@@ -6,13 +6,19 @@ if __name__ == "__main__":
     from api.v1.auth.basic_auth import BasicAuth
 
     ba = BasicAuth()
-    res = ba.decode_base64_authorization_header("SEJUTg==")
-    if res is None:
-        print("decode_base64_authorization_header must return the decoded version of 'base64_authorization_header'")
+    res1, res2 = ba.extract_user_credentials("Holberton:HBTN")
+    if res1 is None:
+        print("extract_user_credentials must return the first part of 'decoded_base64_authorization_header' (separated by ':')")
+        exit(1)
+    if res2 is None:
+        print("extract_user_credentials must return the last part of 'decoded_base64_authorization_header' (separated by ':')")
         exit(1)
 
-    if res != "HBTN":
-        print("Wrong Base64 decode: {}".format(res))
+    if res1 != "Holberton":
+        print("Wrong first part of 'decoded_base64_authorization_header': {}".format(res1))
         exit(1)
-
+    if res2 != "HBTN":
+        print("Wrong second part of 'decoded_base64_authorization_header': {}".format(res1))
+        exit(1)
+    
     print("OK", end="")
