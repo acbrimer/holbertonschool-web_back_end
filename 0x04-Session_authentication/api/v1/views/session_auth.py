@@ -33,7 +33,6 @@ def login():
 def logout():
     """ logout - calls function to remove session """
     from api.v1.app import auth
-    res = auth.destroy_session(request)
-    if not res:
-        return False, abort(404)
-    return jsonify({}), 200
+    if auth.destroy_session(request):
+        return jsonify(dict({})), 200
+    return False, abort(404)
