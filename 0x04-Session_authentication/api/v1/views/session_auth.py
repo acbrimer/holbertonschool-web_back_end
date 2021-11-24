@@ -27,3 +27,13 @@ def login():
         cookie_name = os.environ.get('SESSION_NAME')
         out.set_cookie(cookie_name, session_id)
         return out
+
+
+@app_views.route('/api/v1/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """ logout - calls function to remove session """
+    from api.v1.app import auth
+    res = auth.destroy_session(request)
+    if not res:
+        return False, abort(404)
+    return jsonify({}), 200
