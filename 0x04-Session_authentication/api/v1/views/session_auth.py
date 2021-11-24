@@ -8,6 +8,7 @@ import os
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
+    """ loging - function to handle login requests """
     email = request.form.get('email', None)
     if not email:
         return jsonify({"error": "email missing"}), 400
