@@ -1,18 +1,74 @@
 #!/usr/bin/env python3
-""" Cookie server
+""" Check response
 """
-from flask import Flask, request
-from api.v1.auth.auth import Auth
-
-auth = Auth()
-
-app = Flask(__name__)
-
-@app.route('/', methods=['GET'], strict_slashes=False)
-def root_path():
-    """ Root path
-    """
-    return "Cookie value: {}\n".format(auth.session_cookie(request))
+import requests
+import base64
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    user_email = "u9@hbtn.io"
+    user_pwd = "pwd9"
+    
+    r = requests.post('http://0.0.0.0:3456/api/v1/auth_session/login', data={ 'email': user_email, 'password': user_pwd })
+    if r.status_code != 200:
+        print("Wrong status code: {}".format(r.status_code))
+        exit(1)
+    if r.headers.get('content-type') != "application/json":
+        print("Wrong content type: {}".format(r.headers.get('content-type')))
+        exit(1)
+    
+    try:
+        r_json = r.json()
+        
+        r_user_email = r_json.get('email')
+        if r_user_email is None:
+            print("User is not return")
+            exit(1)
+        
+        if r_user_email != user_email:
+            print("User returned is not the same: {}".format(r_json))
+            exit(1)
+        user_id = r_json.get('id')
+        
+        cookie_session_id = r.cookies.get('_my_session_id')
+        if cookie_session_id is None:
+            print("No cookie _my_session_id returned")
+            exit(1)
+            
+        """ Request Me """
+        r_user_me = requests.get('http://0.0.0.0:3456/api/v1/users/me', cookies={ '_my_session_id': cookie_session_id })
+        if r_user_me.status_code != 200:
+            print("Wrong status code: {}".format(r_user_me.status_code))
+            exit(1)
+        if r_user_me.headers.get('content-type') != "application/json":
+            print("Wrong content type: {}".format(r_user_me.headers.get('content-type')))
+            exit(1)
+        
+        r_user_me_json = r_user_me.json()
+        
+        r_user_me_id = r_user_me_json.get('id')
+        if r_user_me_id is None:
+            print("User is not return")
+            exit(1)
+        
+        if r_user_me_id != user_id:
+            print("User returned is not the same: {}".format(r_user_me_json))
+            exit(1)
+
+        
+        """ Destroy Session """
+        r_destroy_session = requests.delete('http://0.0.0.0:3456/api/v1/auth_session/logout', cookies={ '_my_session_id': cookie_session_id })
+        if r_destroy_session.status_code != 200:
+            print("Wrong status code: {}".format(r_destroy_session.status_code))
+            exit(1)
+        if r_destroy_session.headers.get('content-type') != "application/json":
+            print("Wrong content type: {}".format(r_destroy_session.headers.get('content-type')))
+            exit(1)
+        
+        r_destroy_session_json = r_destroy_session.json()
+        if r_destroy_session_json != {}:
+            print("Wrong value return: {}".format(r_destroy_session_json))
+            exit(1)
+
+        print("OK", end="")
+    except:
+        print("Error, not a JSON")

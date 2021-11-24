@@ -35,4 +35,4 @@ def logout():
     from api.v1.app import auth
     if auth.destroy_session(request):
         return jsonify(dict({})), 200
-    return False, abort(404)
+    abort(404)
