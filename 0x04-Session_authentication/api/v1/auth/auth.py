@@ -2,11 +2,15 @@
 """ Module for auth """
 from flask import request
 from typing import List, TypeVar
+import os
 
 
 def clean_url(url: str) -> str:
     """ clean_url - helper func for slash tolerant url match """
     return url[:-1] if url[-1] == '/' else url
+
+
+cookie_name = os.environ.get('SESSION_NAME', '_my_session_id')
 
 
 class Auth:
@@ -40,3 +44,9 @@ class Auth:
         """ current_user - hardcoded None """
         print('Auth.current_user')
         return None
+
+    def session_cookie(self, request=None):
+        """ session_cookie - returns a cookie from a request """
+        if request is None:
+            return None
+        return request.cookies.get(cookie_name, None)
