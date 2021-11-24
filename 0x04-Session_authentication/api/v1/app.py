@@ -36,12 +36,12 @@ def before_request():
     """ before_request - checks auth """
     request.current_user = auth.current_user(request)
     if auth.authorization_header(request) and auth.session_cookie(request):
-        return None
+        return None, abort(401)
     if auth and auth.require_auth(request.path, excluded_paths):
-        if not auth.current_user(request):
-            abort(403)
         if not auth.authorization_header(request):
             abort(401)
+        if not auth.current_user(request):
+            abort(403)
 
 
 @app.errorhandler(404)
