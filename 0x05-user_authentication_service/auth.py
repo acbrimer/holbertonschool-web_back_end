@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """ Module for auth """
+from sqlalchemy.orm import session
 from db import DB
 import bcrypt
 from user import User
@@ -53,5 +54,17 @@ class Auth:
                 sesssionId = self._generate_uuid()
                 self._db.update_user(user.id, session_id=sesssionId)
                 return sesssionId
+        except NoResultFound as e:
+            return None
+
+    def get_user_from_session_id(self, session_id: str) -> User:
+        """ Gets user from session ID """
+        if not session_id or not isinstance(session_id, str):
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            if user:
+                return user
+            return None
         except NoResultFound as e:
             return None
