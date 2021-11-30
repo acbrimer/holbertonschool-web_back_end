@@ -4,6 +4,7 @@ from db import DB
 import bcrypt
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+import uuid
 
 salt = bcrypt.gensalt()
 
@@ -19,6 +20,10 @@ class Auth:
 
     def __init__(self):
         self._db = DB()
+
+    def _generate_uuid(self) -> str:
+        """ Gens a new uuid """
+        return str(uuid.uuid4())
 
     def register_user(self, email: str, password: str) -> User:
         """ Registers a new user """
