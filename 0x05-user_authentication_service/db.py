@@ -39,10 +39,20 @@ class DB:
 
     def find_user_by(self, **kwargs):
         """ Finds user by fields in kwargs """
-        for key, value in kwargs.items():
+        for key in kwargs.keys():
             if key not in User.__table__.columns:
                 raise InvalidRequestError()
         res = self._session.query(User).filter_by(**kwargs).first()
         if not res:
             raise NoResultFound()
         return res
+
+    def update_user(self, user_id, **kwargs):
+        """ Updates a user from kwargs """
+        user = self.find_user_by(id=user_id)
+        for key in kwargs.keys():
+            if key not in User.__table__.columns:
+                raise ValueError()
+        for key, val in kwargs.items():
+            setattr(user, key, val)
+        self._session.commit()
