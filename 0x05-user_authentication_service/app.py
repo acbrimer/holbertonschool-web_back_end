@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Module for flask app """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 
@@ -35,6 +35,17 @@ def login():
     res = jsonify({"email": email, "message": "logged in"})
     res.set_cookie("session_id", sessionId)
     return res
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    """ Finds user by session_id cookie and logs out if exists """
+    sessionId = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(sessionId)
+    if user:
+        AUTH.destroy_session(user.id, 302)
+        return redirect("/")
+    abort(403)
 
 
 if __name__ == "__main__":
