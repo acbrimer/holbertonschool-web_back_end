@@ -50,10 +50,16 @@ class DB:
 
     def update_user(self, user_id, **kwargs):
         """ Updates a user from kwargs """
-        user = self.find_user_by(id=user_id)
-        for key in kwargs.keys():
-            if key not in User.__table__.columns:
-                raise ValueError()
+        try:
+            user = self.find_user_by(id=user_id)
+        except NoResultFound:
+            raise NoResultFound
+        except Exception:
+            raise InvalidRequestError
         for key, val in kwargs.items():
+            try:
+                hasattr(user, key)
+            except Exception:
+                raise ValueError
             setattr(user, key, val)
         self._session.commit()
