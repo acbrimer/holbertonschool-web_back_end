@@ -57,9 +57,7 @@ class DB:
         except Exception:
             raise InvalidRequestError
         for key, val in kwargs.items():
-            try:
-                hasattr(user, key)
-            except Exception:
-                raise ValueError
+            if not hasattr(user, key):
+                raise ValueError()
             setattr(user, key, val)
         self._session.commit()
