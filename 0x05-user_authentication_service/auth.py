@@ -15,16 +15,17 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password.encode('utf8'), salt)
 
 
+def _generate_uuid() -> str:
+    """ Gens a new uuid """
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
 
     def __init__(self):
         self._db = DB()
-
-    def _generate_uuid(self) -> str:
-        """ Gens a new uuid """
-        return str(uuid.uuid4())
 
     def register_user(self, email: str, password: str) -> User:
         """ Registers a new user """
@@ -51,7 +52,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             if user:
-                sesssionId = self._generate_uuid()
+                sesssionId = _generate_uuid()
                 self._db.update_user(user.id, session_id=sesssionId)
                 return sesssionId
         except NoResultFound as e:
@@ -82,7 +83,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             if user:
-                resetToken = self._generate_uuid()
+                resetToken = _generate_uuid()
                 self._db.update_user(user.id, reset_token=resetToken)
                 return resetToken
         except NoResultFound as e:
