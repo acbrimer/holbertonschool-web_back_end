@@ -16,6 +16,7 @@ def index():
 
 @app.route('/users', methods=['POST'])
 def users():
+    """ Endpoint for registering a user """
     email = request.form.get('email', None)
     password = request.form.get('password', None)
     try:
@@ -27,6 +28,7 @@ def users():
 
 @app.route('/sessions', methods=['POST'])
 def login():
+    """ Endpoint for user login """
     email = request.form.get('email', None)
     pw = request.form.get('password', None)
     if not email or not pw or not AUTH.valid_login(email, pw):
