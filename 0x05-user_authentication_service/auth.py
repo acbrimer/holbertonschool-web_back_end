@@ -6,6 +6,7 @@ import bcrypt
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 import uuid
+from typing import TypeVar
 
 salt = bcrypt.gensalt()
 
@@ -26,7 +27,7 @@ class Auth:
         """ Gens a new uuid """
         return str(uuid.uuid4())
 
-    def register_user(self, email: str, password: str) -> User:
+    def register_user(self, email: str, password: str) -> TypeVar('User'):
         """ Registers a new user """
         try:
             user = self._db.find_user_by(email=email)
@@ -57,7 +58,7 @@ class Auth:
         except NoResultFound as e:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> User:
+    def get_user_from_session_id(self, session_id: str) -> TypeVar('User'):
         """ Gets user from session ID """
         if not session_id or not isinstance(session_id, str):
             return None
