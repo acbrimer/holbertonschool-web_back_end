@@ -83,5 +83,6 @@ def update_password():
     except ValueError as e:
         abort(403)
 
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
