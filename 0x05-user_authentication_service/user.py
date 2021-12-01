@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module for user model """
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Sequence
+from sqlalchemy import Column, Integer, String
 
 Base = declarative_base()
 
