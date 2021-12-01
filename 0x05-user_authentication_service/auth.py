@@ -87,7 +87,7 @@ class Auth:
                 self._db.update_user(user.id, reset_token=resetToken)
                 return resetToken
         except NoResultFound as e:
-            return None
+            raise ValueError()
 
     def update_password(self, reset_token: str, password: str):
         """ Resets the password for a valid reset_token """
