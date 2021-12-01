@@ -38,7 +38,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """ Finds user by fields in kwargs """
         for key in kwargs.keys():
             if key not in User.__table__.columns:
@@ -48,7 +48,7 @@ class DB:
             raise NoResultFound()
         return res
 
-    def update_user(self, user_id, **kwargs):
+    def update_user(self, user_id, **kwargs) -> None:
         """ Updates a user from kwargs """
         try:
             user = self.find_user_by(id=user_id)
