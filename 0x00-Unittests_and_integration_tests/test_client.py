@@ -28,3 +28,12 @@ class TestGithubOrgClient(unittest.TestCase):
         """Tests client.GithubOrgClient._public_repos_url """
         github_org_client = GithubOrgClient('test_org')
         self.assertEqual(github_org_client._public_repos_url, 'www')
+
+    @patch('client.get_json', MagicMock(return_value={'key': 'val'}))
+    def test_public_repos(self):
+        """Tests client.GithubOrgClient.public_repos"""
+        with patch('client.GithubOrgClient._public_repos_url',
+                   MagicMock(return_value='www')) as repo:
+            github_org_client = GithubOrgClient('test_org')
+            self.assertEqual(github_org_client.public_repos, 'www')
+            repo.assert_called_once()
