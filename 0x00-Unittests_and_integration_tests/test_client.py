@@ -3,7 +3,7 @@
 """
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, PropertyMock, patch
 from parameterized import parameterized
 from client import GithubOrgClient
 
@@ -30,11 +30,14 @@ class TestGithubOrgClient(unittest.TestCase):
         github_org_client = GithubOrgClient('test_org')
         self.assertEqual(github_org_client._public_repos_url, 'www')
 
-    @patch('client.get_json', MagicMock(return_value={'repos_url', 'www'}))
-    def test_public_repos(self):
+    @patch('client.get_json')
+    def test_public_repos(self, mock_json):
         """Tests client.GithubOrgClient.public_repos"""
         with patch('client.GithubOrgClient.public_repos',
-                   MagicMock(return_value='www')) as repo:
+                   new_callable=PropertyMock) as repo:
+            mock_json.return_value = {'repos_url': 'www'}
             github_org_client = GithubOrgClient('test_org')
+            repo.return_value = github_org_client.org.get('repos_url')
             self.assertEqual(github_org_client.public_repos, 'www')
             repo.assert_called_once()
+            mock_json.assert_called_once()
