@@ -5,7 +5,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 from parameterized import parameterized
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -67,7 +67,6 @@ class TestMemoize(unittest.TestCase):
 
         test_class = TestClass()
         test_class.a_method = MagicMock(return_value=42)
-        self.assertEqual(test_class.a_method(), 42)
         self.assertEqual(test_class.a_property, 42)
         self.assertEqual(test_class.a_property, 42)
         test_class.a_method.assert_called_once()
