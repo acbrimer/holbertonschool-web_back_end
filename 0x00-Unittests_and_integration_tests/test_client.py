@@ -19,6 +19,12 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch('client.get_json', MagicMock(return_value={'key', 'value'}))
     def test_org(self, org):
-        """ Tests utils.get_json for expected value """
+        """ Tests client.GithubOrgClient.org for expected value """
         github_org_client = GithubOrgClient(org)
         self.assertEqual(github_org_client.org, {'key', 'value'})
+
+    @patch('client.GithubOrgClient.org', MagicMock(return_value={'repos_url', 'www'}))
+    def test_public_repos_url(self):
+        """Tests client.GithubOrgClient._public_repos_url """
+        github_org_client = GithubOrgClient('test_org')
+        self.assertEqual(github_org_client._public_repos_url, 'www')
