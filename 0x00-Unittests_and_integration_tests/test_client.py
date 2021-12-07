@@ -33,7 +33,7 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json', MagicMock(return_value={'repos_url', 'www'}))
     def test_public_repos(self):
         """Tests client.GithubOrgClient.public_repos"""
-        with patch('client.GithubOrgClient._public_repos_url',
+        with patch('client.GithubOrgClient.public_repos',
                    MagicMock(return_value='www')) as repo:
             github_org_client = GithubOrgClient('test_org')
             self.assertEqual(github_org_client.public_repos, 'www')
