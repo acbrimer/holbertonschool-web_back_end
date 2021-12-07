@@ -47,3 +47,27 @@ class TestGetJson(unittest.TestCase):
         with patch('requests.get') as r:
             r().json.return_value = payload
             self.assertEqual(get_json(uri), payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """TestMemorize class
+    Tests utils.memorize function
+    """
+
+    def test_memoize(self):
+        """Tests memorize function """
+        class TestClass:
+
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        with patch.object(TestClass.a_method, 'method', return_value=None) as mock_method:
+            test_class = TestClass()
+            self.assertEqual(test_class.a_method(), 42)
+            self.assertEqual(test_class.a_property, 42)
+            self.assertEqual(test_class.a_property, 42)
+            mock_method.assert_called_once()
