@@ -7,5 +7,5 @@ AS
 	WHERE s.score < 80
 	AND (
 		s.last_meeting IS NULL
-		OR s.last_meeting > DATE_ADD(NOW(),INTERVAL -1 MONTH)
+		OR s.last_meeting < DATE_ADD(CURDATE(),INTERVAL -1 MONTH - INTERVAL 4 DAY)
 		);
