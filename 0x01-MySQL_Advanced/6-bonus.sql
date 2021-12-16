@@ -1,4 +1,4 @@
--- Create a stored proc to handle corrections
+-- Creates proc to handle correction updates
 DELIMITER $$
 CREATE PROCEDURE AddBonus 
 	(
@@ -9,24 +9,21 @@ CREATE PROCEDURE AddBonus
 	BEGIN	
 		
 		-- insert new project if not exists
-		IF NOT EXISTS (
-			SELECT id FROM projects AS p
-			WHERE p.name = @project_name
-			)
-			THEN
-			INSERT INTO projects (name)
-			VALUES (project_name);
-		END IF;
+		INSERT INTO projects (name)
+			SELECT project_name
+			WHERE NOT EXISTS (
+				SELECT p.id FROM projects AS p
+				WHERE p.name = project_name);
 		
 		
-		-- insert new correction
+		-- insert correction
 		INSERT INTO corrections (user_id, project_id, score)
 		SELECT 
-		@user_id,
-		1,
-		@score
-		FROM projects AS p
-			WHERE p.name = @project_name;
-	
+		user_id,
+		p.id AS `project_id`,
+		score
+		FROM projects AS p 
+		WHERE p.name = project_name;
+
 	END;
 	$$
