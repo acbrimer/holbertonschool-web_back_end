@@ -6,6 +6,6 @@ AS
 	FROM students AS s
 	WHERE s.score < 80
 	AND (
-		s.last_meeting IS NULL
+		ISNULL(s.last_meeting)
 		OR s.last_meeting < DATE_ADD(CURDATE(),INTERVAL -1 MONTH)
 		);
