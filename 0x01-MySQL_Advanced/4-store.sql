@@ -1,6 +1,8 @@
 -- Creates a trigger on items table
-CREATE TRIGGER trig_decrease_items BEFORE UPDATE ON items
+CREATE TRIGGER trig_decrease_items AFTER UPDATE ON orders
        FOR EACH ROW
        BEGIN
-           SET NEW.amount = NEW.amount - 1;
+           UPDATE items
+          	SET amount = amount - 1
+          	WHERE name = NEW.item_name;
        END;
