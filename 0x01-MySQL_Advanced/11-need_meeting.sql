@@ -7,5 +7,7 @@ AS
 	WHERE s.score < 80
 	AND (
 		ISNULL(s.last_meeting)
-		OR PERIOD_DIFF((EXTRACT(YEAR_MONTH FROM NOW()), EXTRACT(YEAR_MONTH FROM s.last_meeting)) > 0
+		OR PERIOD_DIFF(
+			EXTRACT(YEAR_MONTH FROM NOW()), 
+			EXTRACT(YEAR_MONTH FROM s.last_meeting)) > 0
 		);
