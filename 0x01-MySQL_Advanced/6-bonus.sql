@@ -9,12 +9,14 @@ CREATE PROCEDURE AddBonus
 	BEGIN	
 		
 		-- insert new project if not exists
-		INSERT INTO projects (name)
-		SELECT @project_name
-		WHERE NOT EXISTS (
+		IF NOT EXISTS (
 			SELECT id FROM projects AS p
 			WHERE p.name = @project_name
-		);
+			)
+			THEN
+			INSERT INTO projects (name)
+			VALUES (project_name);
+		END IF;
 		
 		
 		-- insert new correction
@@ -28,4 +30,3 @@ CREATE PROCEDURE AddBonus
 	
 	END;
 	$$
-
