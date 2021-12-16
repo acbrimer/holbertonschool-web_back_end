@@ -6,7 +6,7 @@ AS
 	FROM students AS s
 	WHERE s.score < 80
 	AND (
-		ISNULL(s.last_meeting)
+		s.last_meeting IS NULL
 		OR PERIOD_DIFF(
 			EXTRACT(YEAR_MONTH FROM NOW()), 
 			EXTRACT(YEAR_MONTH FROM s.last_meeting)) > 0
