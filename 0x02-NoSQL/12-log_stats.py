@@ -5,9 +5,9 @@ from pymongo import MongoClient
 
 def log_stats():
     """log_stats - method to log stats from mongo aggregation"""
-    client = MongoClient()
+    client = MongoClient('mongodb://127.0.0.1:27017')
     db = client.logs
-    collection = db["nginx"]
+    collection = db["nginxx"]
     res = len(list(collection.find()))
     print("{} logs".format(res))
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
@@ -23,6 +23,7 @@ def log_stats():
     print("\n".join(res))
     res = len(list(collection.find({"path": "/status"})))
     print("{} status check".format(res))
+
 
 if __name__ == "__main__":
     log_stats()
