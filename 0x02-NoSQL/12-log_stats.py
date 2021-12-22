@@ -3,7 +3,7 @@
 from pymongo import MongoClient
 
 
-def stats():
+def log_stats():
     """log_stats - method to log stats from mongo aggregation"""
     client = MongoClient('mongodb://127.0.0.1:27017')
     db = client.logs
@@ -26,4 +26,4 @@ def stats():
 
 
 if __name__ == "__main__":
-    stats()
+    log_stats()
