@@ -3,7 +3,7 @@
 from pymongo import MongoClient
 
 
-def log_stats():
+def stats():
     """log_stats - method to log stats from mongo aggregation"""
     client = MongoClient('mongodb://127.0.0.1:27017')
     db = client.logs
@@ -18,7 +18,7 @@ def log_stats():
     agg = dict([(r['_id'], r['count'])
                for r in list(collection.aggregate(pipeline))])
     print("Methods:")
-    res = ["  method {}: {}".format(
+    res = ["	method {}: {}".format(
         m, agg[m] if m in agg.keys() else 0) for m in methods]
     print("\n".join(res))
     print("{} status check".format(collection.count_documents(
@@ -26,4 +26,4 @@ def log_stats():
 
 
 if __name__ == "__main__":
-    log_stats()
+    stats()
