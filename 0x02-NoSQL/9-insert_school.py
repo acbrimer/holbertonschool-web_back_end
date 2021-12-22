@@ -4,4 +4,4 @@
 
 def insert_school(mongo_collection, **kwargs):
     """insert_school- inserts new doc from kwargs"""
-    mongo_collection.insert_one(dict(kwargs))
+    mongo_collection.insert(dict(kwargs))
