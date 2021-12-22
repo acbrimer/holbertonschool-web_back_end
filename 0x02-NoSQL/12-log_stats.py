@@ -8,8 +8,8 @@ def log_stats():
     client = MongoClient('mongodb://127.0.0.1:27017')
     db = client.logs
     collection = db["nginxx"]
-    res = len(list(collection.find()))
-    print("{} logs".format(res))
+    print("{} logs".format(collection.count_documents(
+        {'method': 'GET', 'path': '/status'})))
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     pipeline = [
         {"$match": {"method": {"$in": methods}}},
@@ -21,8 +21,8 @@ def log_stats():
     res = ["  method {}: {}".format(
         m, agg[m] if m in agg.keys() else 0) for m in methods]
     print("\n".join(res))
-    res = len(list(collection.find({"path": "/status"})))
-    print("{} status check".format(res))
+    print("{} status check".format(collection.count_documents(
+        {'method': 'GET', 'path': '/status'})))
 
 
 if __name__ == "__main__":
