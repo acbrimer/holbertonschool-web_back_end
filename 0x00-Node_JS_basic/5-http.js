@@ -2,7 +2,9 @@ const http = require('http');
 const fs = require('fs');
 
 const port = 1245;
-const database = process.stdin.read();
+
+const args = process.argv && process.argv.slice(2);
+const database = args && args.length > 0 && args[0];
 
 const parseCsv = (csv) => {
   /**
@@ -46,9 +48,15 @@ function countStudents(path) {
 const app = http
   .createServer((req, res) => {
     if (req.url.startsWith('/students')) {
-      const countMessage = countStudents(database);
-      res.write(countMessage);
-      res.end();
+      try {
+        const countMessage = countStudents(database);
+        res.write(countMessage);
+        res.end();
+      } catch (err) {
+        res.statusCode = 404;
+        res.write('Cannot load the database');
+        res.end();
+      }
     } else {
       res.write('Hello Holberton School!');
       res.end();
