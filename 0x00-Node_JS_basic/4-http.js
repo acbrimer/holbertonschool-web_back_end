@@ -1,12 +1,13 @@
-const express = require('express');
+const http = require('http');
 
-const app = express();
 const port = 1245;
 
-app.get('/', (req, res) => {
-  res.send('Hello Holberton School!');
-});
-
-app.listen(port);
+// create a server object:
+const app = http
+  .createServer((req, res) => {
+    res.write('Hello Holberton School!');
+    res.end();
+  })
+  .listen(port);
 
 module.exports = app;
