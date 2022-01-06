@@ -3,8 +3,8 @@ const fs = require('fs');
 
 const port = 1245;
 
-const args = process.argv && process.argv.slice(2);
-const database = args && args.length > 0 && args[0];
+const database = process.argv[2];
+console.log('Database: ', database);
 
 const parseCsv = (csv) => {
   /**
@@ -23,22 +23,24 @@ const parseCsv = (csv) => {
 };
 
 function countStudents(path) {
+  console.log('Count students: ', path);
   try {
     // read file to csv string
     const csv = fs.readFileSync(path).toString();
     // parse to array of objects
     const data = parseCsv(csv);
     // log total students
-    const msg = `Number of students: ${data.length}\n`;
+    const lines = [`Number of students: ${data.length}`];
+
     // filter and log students for CS, SWE fields
     ['CS', 'SWE'].forEach((field) => {
       const students = data.filter((r) => r.field && r.field === field);
       const countMsg = `Number of students in ${field}: ${
         students.length
       }. List: ${students.map((r) => r.firstname).join(', ')}`;
-      msg.append(countMsg);
+      lines.push(countMsg);
     });
-    return msg;
+    return lines.join('\n');
   } catch (err) {
     throw new Error('Cannot load the database');
   }
