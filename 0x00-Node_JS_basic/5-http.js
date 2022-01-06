@@ -4,7 +4,6 @@ const fs = require('fs');
 const port = 1245;
 
 const database = process.argv[2];
-console.log('Database: ', database);
 
 const parseCsv = (csv) => {
   /**
@@ -23,7 +22,6 @@ const parseCsv = (csv) => {
 };
 
 function countStudents(path) {
-  console.log('Count students: ', path);
   try {
     // read file to csv string
     const csv = fs.readFileSync(path).toString();
