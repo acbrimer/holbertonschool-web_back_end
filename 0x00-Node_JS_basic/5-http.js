@@ -28,10 +28,7 @@ function countStudents(path) {
     // parse to array of objects
     const data = parseCsv(csv);
     // log total students
-    const lines = [
-      'This is the list of our students',
-      `Number of students: ${data.length}`,
-    ];
+    const lines = [`Number of students: ${data.length}`];
 
     // filter and log students for CS, SWE fields
     ['CS', 'SWE'].forEach((field) => {
@@ -51,6 +48,7 @@ function countStudents(path) {
 const app = http
   .createServer((req, res) => {
     if (req.url.startsWith('/students')) {
+      res.write('This is the list of our students\n');
       try {
         const countMessage = countStudents(database);
         res.write(countMessage);
