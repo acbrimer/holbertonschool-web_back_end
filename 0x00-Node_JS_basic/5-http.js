@@ -28,7 +28,10 @@ function countStudents(path) {
     // parse to array of objects
     const data = parseCsv(csv);
     // log total students
-    const lines = [`Number of students: ${data.length}`];
+    const lines = [
+      'This is the list of our students',
+      `Number of students: ${data.length}`,
+    ];
 
     // filter and log students for CS, SWE fields
     ['CS', 'SWE'].forEach((field) => {
