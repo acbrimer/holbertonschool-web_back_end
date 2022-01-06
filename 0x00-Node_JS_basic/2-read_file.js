@@ -33,6 +33,6 @@ module.exports = function countStudents(path) {
       console.log(msg);
     });
   } catch (err) {
-    console.log('Cannot load the database');
+    console.error('Cannot load the database');
   }
 };
