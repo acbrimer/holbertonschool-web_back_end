@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 const { readDatabase } = require('../utils');
 
-const database = process.argv[2];
-
 class StudentsController {
   static getAllStudents(request, response) {
+    const database = process.argv[2];
     readDatabase(database)
       .then((data) => {
         const results = Object.keys(data)
@@ -24,6 +23,7 @@ class StudentsController {
   }
 
   static getAllStudentsByMajor(request, response) {
+    const database = process.argv[2];
     readDatabase(database)
       .then((data) => {
         const field = request.params.major;
