@@ -24,12 +24,14 @@ function readDatabase(path) {
       // parse to array of objects
       const data = parseCsv(csv);
       // return object with list of students for each field
-      const students = {};
-      [('CS', 'SWE')].forEach((field) => {
-        const students = data.filter((r) => r.field && r.field === field);
-        const list = students.map((r) => r.firstname);
-        students[field] = list;
-      });
+      const students = {
+        CS: data
+          .filter((r) => r.field && r.field === 'CS')
+          .map((r) => r.firstname),
+        SWE: data
+          .filter((r) => r.field && r.field === 'SWE')
+          .map((r) => r.firstname),
+      };
       resolve(students);
     } catch (err) {
       reject(new Error('Cannot load the database'));
