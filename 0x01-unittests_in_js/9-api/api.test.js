@@ -24,7 +24,7 @@ describe('Test Module for 8-api', () => {
       // Correct result?
       expect(err).to.be.null;
       expect(body).to.be.not.null;
-      expect(body).to.equal(`Payment method for cart ${testId}`);
+      expect(body).to.equal(`Payment methods for cart ${testId}`);
       done();
     });
   });
