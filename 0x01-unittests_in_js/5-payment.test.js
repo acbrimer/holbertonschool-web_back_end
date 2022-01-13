@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const expect = require('chai').expect;
 const Utils = require('./utils');
 
-describe('Test Module 3-payment', () => {
+describe('Test Module 5-payment', () => {
   let spy_console;
 
   beforeEach(() => {
