@@ -5,9 +5,6 @@ const request = require('request');
 describe('Test Module for 8-api', () => {
   it('Test index page', (done) => {
     request('http://localhost:7865/', (err, res, body) => {
-      console.log('res', res);
-      console.log('body', body);
-      done();
       // Correct status code?
       expect(res).to.be.not.null;
       expect(res.statusCode).to.equal(200);
@@ -15,6 +12,7 @@ describe('Test Module for 8-api', () => {
       expect(err).to.be.null;
       expect(body).to.be.not.null;
       expect(body).to.equal('Welcome to the payment system');
+      done();
     });
   });
 });
