@@ -32,9 +32,6 @@ describe('Test Module for 8-api', () => {
     request('http://localhost:7865/cart/abc', (err, res, body) => {
       // Correct status code?
       expect(res.statusCode).to.equal(404);
-      // Correct result?
-      expect(err).to.be.not.null;
-      expect(body).to.be.null;
       done();
     });
   });
