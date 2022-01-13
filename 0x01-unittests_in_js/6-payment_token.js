@@ -2,6 +2,8 @@
 
 const getPaymentTokenFromAPI = async (success) => {
   if (success) {
-    return Promise.resolve({ data: 'Successful response from the API' });
+    return new Promise((resolve) =>
+      resolve({ data: 'Successful response from the API' })
+    );
   }
 };
