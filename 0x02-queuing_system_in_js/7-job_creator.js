@@ -13,11 +13,21 @@ class JobCreator {
     );
     this.job.on('complete', this.handleJobComplete);
     this.job.on('failed', this.handleJobFailure);
+    this.job.on('progress', this.handleJobProgress);
+
+    this.handleJobComplete = this.handleJobComplete.bind(this);
+    this.handleJobFailure = this.handleJobFailure.bind(this);
+    this.handleJobProgress = this.handleJobProgress.bind(this);
   }
 
-  handleJobComplete = () => console.log('Notification job completed');
+  handleJobComplete = () =>
+    console.log(`Notification job ${this.job.id} completed`);
 
-  handleJobFailure = () => console.log('Notification job failed');
+  handleJobFailure = (err) =>
+    console.log(`Notification job ${this.job.id} failed: ${err}`);
+
+  handleJobProgress = (progress) =>
+    console.log(`Notification job ${this.job.id} ${progress}% complete`);
 }
 
 const main = () => {
