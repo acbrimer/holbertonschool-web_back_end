@@ -1,12 +1,12 @@
 // 6-job_creator
-import kue from 'kue';
+import { createQueue } from 'kue';
 
 class JobCreator {
   /**
    * JobCreator - creates a job an dhandles completion
    */
   constructor(queue_name, job_data) {
-    this.que = kue.createQueue();
+    this.que = createQueue();
     this.job = this.que.create(queue_name, job_data);
     this.job.save(
       (err) => !err && console.log(`Notification job created: ${this.job.id}`)
